@@ -21,6 +21,78 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  // ─────────────────────────────────────────────
+  // FEATURED PROJECTS
+  // ─────────────────────────────────────────────
+
+  {
+    slug: "app-blocker-pro",
+    title: "App Blocker Pro",
+    category: "Productivity",
+    description:
+      "A premium app-blocking experience focused on helping users reduce distractions, manage screen time, and maintain better focus.",
+    technologies: ["Swift", "SwiftUI", "Screen Time"],
+    accent: "#6366F1",
+    featured: true,
+    appStoreUrl:
+      "https://apps.apple.com/us/app/app-blocker-focus-lock-pro/id6790365613",
+    assets: {
+      icon: "/Apps Assets/App Blocker Pro/icon.webp",
+      screenshots: [
+        "/Apps Assets/App Blocker Pro/s1.webp",
+        "/Apps Assets/App Blocker Pro/s2.webp",
+        "/Apps Assets/App Blocker Pro/s3.webp",
+      ],
+    },
+  },
+
+  {
+    slug: "phone-cleaner",
+    title: "Phone Cleaner",
+    category: "Photo & Storage",
+    description:
+      "A powerful cleaning utility designed to help users manage unnecessary media, organize their library, and keep device storage under control.",
+    technologies: ["Swift", "SwiftUI", "Photos", "Media Processing"],
+    accent: "#2DD4BF",
+    featured: true,
+    reverse: true,
+    appStoreUrl:
+      "https://apps.apple.com/pk/app/phone-cleaner-clean-ai/id6749749353",
+    assets: {
+      icon: "/Apps Assets/cleaner/icon.webp",
+      screenshots: [
+        "/Apps Assets/cleaner/s1.webp",
+        "/Apps Assets/cleaner/s2.webp",
+        "/Apps Assets/cleaner/s3.webp",
+      ],
+    },
+  },
+
+  {
+    slug: "route-planner",
+    title: "Route Planner",
+    category: "Navigation",
+    description:
+      "A GPS-based route planning application designed to help users plan journeys, explore destinations, and navigate between locations.",
+    technologies: ["Swift", "SwiftUI", "MapKit", "Core Location"],
+    accent: "#60A5FA",
+    featured: true,
+    appStoreUrl:
+      "https://apps.apple.com/pk/app/route-planner-gps-maps/id6756566984",
+    assets: {
+      icon: "/Apps Assets/route/icon.webp",
+      screenshots: [
+        "/Apps Assets/route/s1.webp",
+        "/Apps Assets/route/s2.webp",
+        "/Apps Assets/route/s3.webp",
+      ],
+    },
+  },
+
+  // ─────────────────────────────────────────────
+  // MORE PROJECTS
+  // ─────────────────────────────────────────────
+
   {
     slug: "picx",
     title: "PicX",
@@ -28,8 +100,7 @@ export const projects: Project[] = [
     description:
       "An all-in-one photo utility app focused on AI-powered background removal and practical media editing tools.",
     technologies: ["Swift", "SwiftUI", "AI", "Image Processing"],
-    accent: "#6366F1",
-    featured: true,
+    accent: "#818CF8",
     appStoreUrl:
       "https://apps.apple.com/us/app/bg-remover-media-compressor/id6759575933",
     assets: {
@@ -49,9 +120,9 @@ export const projects: Project[] = [
     description:
       "A recovery-focused iOS application designed to help users find and restore recoverable photos and videos.",
     technologies: ["Swift", "SwiftUI", "Core ML", "Photos"],
-    accent: "#596ADE",
-    featured: true,
-    reverse: true,
+    accent: "#818CF8",
+    appStoreUrl:
+      "https://apps.apple.com/us/app/photo-recovery-deleted-photo/id6741019146",
     assets: {
       icon: "/Apps Assets/PhotoRecovery/icon.webp",
       screenshots: [
@@ -69,8 +140,7 @@ export const projects: Project[] = [
     description:
       "A smart photo organization and cleaning experience built around fast media review and simple swipe-based interactions.",
     technologies: ["Swift", "SwiftUI", "Photos", "AI"],
-    accent: "#BFDCB3",
-    featured: true,
+    accent: "#2DD4BF",
     appStoreUrl:
       "https://apps.apple.com/us/app/swipepix-ai-organize-clean/id6784569710",
     assets: {
@@ -90,7 +160,7 @@ export const projects: Project[] = [
     description:
       "A focus and productivity application designed to help users manage distracting apps and improve their digital habits.",
     technologies: ["Swift", "SwiftUI", "Screen Time"],
-    accent: "#596ADE",
+    accent: "#818CF8",
     appStoreUrl:
       "https://apps.apple.com/us/app/app-blocker-focus-lock/id6760183478",
     assets: {
@@ -110,7 +180,7 @@ export const projects: Project[] = [
     description:
       "An AI-powered skincare companion designed to help users manage and follow personalized skincare routines.",
     technologies: ["Swift", "SwiftUI", "AI"],
-    accent: "#BFDCB3",
+    accent: "#2DD4BF",
     appStoreUrl:
       "https://apps.apple.com/us/app/skincare-ai-routine-tracker/id6764529712",
     assets: {
@@ -130,7 +200,7 @@ export const projects: Project[] = [
     description:
       "A caller identification and spam protection application focused on helping users identify unwanted calls.",
     technologies: ["Swift", "UIKit", "CallKit"],
-    accent: "#6366F1",
+    accent: "#818CF8",
     appStoreUrl:
       "https://apps.apple.com/us/app/caller-id-spam-call-blocker/id6502348779",
     assets: {
@@ -144,53 +214,13 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "phone-cleaner",
-    title: "Phone Cleaner",
-    category: "Photo & Storage",
-    description:
-      "A cleaning utility designed to help users manage unnecessary media and keep their device storage organized.",
-    technologies: ["Swift", "SwiftUI", "Photos", "Media Processing"],
-    accent: "#596ADE",
-    appStoreUrl:
-      "https://apps.apple.com/pk/app/phone-cleaner-clean-ai/id6749749353",
-    assets: {
-      icon: "/Apps Assets/cleaner/icon.webp",
-      screenshots: [
-        "/Apps Assets/cleaner/s1.webp",
-        "/Apps Assets/cleaner/s2.webp",
-        "/Apps Assets/cleaner/s3.webp",
-      ],
-    },
-  },
-
-  {
-    slug: "route-planner",
-    title: "Route Planner",
-    category: "Navigation",
-    description:
-      "A GPS-based route planning application designed to help users plan journeys and navigate between destinations.",
-    technologies: ["Swift", "SwiftUI", "MapKit", "Core Location"],
-    accent: "#BFDCB3",
-    appStoreUrl:
-      "https://apps.apple.com/pk/app/route-planner-gps-maps/id6756566984",
-    assets: {
-      icon: "/Apps Assets/route/icon.webp",
-      screenshots: [
-        "/Apps Assets/route/s1.webp",
-        "/Apps Assets/route/s2.webp",
-        "/Apps Assets/route/s3.webp",
-      ],
-    },
-  },
-
-  {
-    slug: "app-blocker-pro",
+    slug: "app-blocker-pro-old",
     title: "App Blocker Pro",
     category: "Productivity",
     description:
       "A premium app-blocking experience focused on helping users reduce distractions and maintain better focus.",
     technologies: ["Swift", "SwiftUI", "Screen Time"],
-    accent: "#6366F1",
+    accent: "#818CF8",
     appStoreUrl:
       "https://apps.apple.com/us/app/app-blocker-focus-lock-pro/id6790365613",
     assets: {
@@ -210,7 +240,7 @@ export const projects: Project[] = [
     description:
       "A plant identification application designed to help users recognize and explore different plants.",
     technologies: ["Swift", "SwiftUI", "AI", "Image Recognition"],
-    accent: "#BFDCB3",
+    accent: "#2DD4BF",
     appStoreUrl:
       "https://apps.apple.com/us/app/plantify-plant-identifier/id6753703915",
     assets: {
@@ -230,7 +260,7 @@ export const projects: Project[] = [
     description:
       "A swipe-based photo cleaning experience designed to make reviewing and removing unwanted media simple and fast.",
     technologies: ["Swift", "SwiftUI", "Photos", "Gestures"],
-    accent: "#596ADE",
+    accent: "#818CF8",
     appStoreUrl:
       "https://apps.apple.com/us/app/swipe-wipe-photo-cleaner/id6745936005",
     assets: {
@@ -250,7 +280,7 @@ export const projects: Project[] = [
     description:
       "A social media utility combining story saving and media editing features in a simple iOS experience.",
     technologies: ["Swift", "SwiftUI", "Media Processing"],
-    accent: "#6366F1",
+    accent: "#818CF8",
     appStoreUrl:
       "https://apps.apple.com/us/app/story-saver-insta-saver-editor/id6759295159",
     assets: {
@@ -270,7 +300,7 @@ export const projects: Project[] = [
     description:
       "A location-focused utility designed to help users find and keep track of their phone location.",
     technologies: ["Swift", "SwiftUI", "Core Location", "MapKit"],
-    accent: "#BFDCB3",
+    accent: "#2DD4BF",
     appStoreUrl:
       "https://apps.apple.com/us/app/find-my-phone-location-finder/id6762567300",
     assets: {
@@ -290,7 +320,7 @@ export const projects: Project[] = [
     description:
       "A document scanning application for capturing, processing, and working with documents directly from an iPhone or iPad.",
     technologies: ["Swift", "SwiftUI", "Vision", "PDF"],
-    accent: "#596ADE",
+    accent: "#818CF8",
     appStoreUrl:
       "https://apps.apple.com/us/app/scando-pdf-document-scanner/id6803100158",
     assets: {
@@ -310,7 +340,7 @@ export const projects: Project[] = [
     description:
       "A GPS-based utility combining speed tracking and compass functionality for location-aware use.",
     technologies: ["Swift", "SwiftUI", "Core Location", "MapKit"],
-    accent: "#6366F1",
+    accent: "#60A5FA",
     appStoreUrl:
       "https://apps.apple.com/us/app/gps-speedometer-compass/id6755144230",
     assets: {
@@ -330,7 +360,7 @@ export const projects: Project[] = [
     description:
       "A creative sticker-making application for creating and exploring custom stickers from personal media.",
     technologies: ["Swift", "SwiftUI", "Image Processing", "Media"],
-    accent: "#BFDCB3",
+    accent: "#2DD4BF",
     appStoreUrl:
       "https://apps.apple.com/us/app/popsticker-create-explore/id6779978353",
     assets: {
