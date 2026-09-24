@@ -8,37 +8,35 @@
 "use client";
 
 import Image from "next/image";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import type { MouseEvent } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { MouseEvent } from "react";
 
 export default function Hero() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springX = useSpring(mouseX, {
-    stiffness: 80,
-    damping: 20,
+  const smoothX = useSpring(mouseX, {
+    stiffness: 70,
+    damping: 18,
     mass: 0.6,
   });
 
-  const springY = useSpring(mouseY, {
-    stiffness: 80,
-    damping: 20,
+  const smoothY = useSpring(mouseY, {
+    stiffness: 70,
+    damping: 18,
     mass: 0.6,
   });
 
-  const rotateY = useTransform(springX, [-0.5, 0.5], [-5, 5]);
-  const rotateX = useTransform(springY, [-0.5, 0.5], [5, -5]);
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [5, -5]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-7, 7]);
 
-  const photoX = useTransform(springX, [-0.5, 0.5], [-10, 10]);
-  const photoY = useTransform(springY, [-0.5, 0.5], [-8, 8]);
+  const imageX = useTransform(smoothX, [-0.5, 0.5], [-10, 10]);
+  const imageY = useTransform(smoothY, [-0.5, 0.5], [-8, 8]);
 
-  const handleMouseMove = (event: MouseEvent<HTMLElement>) => {
+  const glowX = useTransform(smoothX, [-0.5, 0.5], ["25%", "75%"]);
+  const glowY = useTransform(smoothY, [-0.5, 0.5], ["30%", "70%"]);
+
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
 
     const x = (event.clientX - rect.left) / rect.width - 0.5;
@@ -56,395 +54,349 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden px-5 pb-16 pt-32 sm:px-8 sm:pt-36 lg:px-12"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      className="relative min-h-screen overflow-hidden pt-28"
     >
-      {/* Ambient Background */}
+      {/* Background atmosphere */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="ambient-glow ambient-blue -left-32 top-10 h-72 w-72 sm:h-[480px] sm:w-[480px]" />
+        <motion.div
+          className="absolute h-[550px] w-[550px] rounded-full bg-emerald-400/[0.055] blur-[140px]"
+          style={{
+            left: glowX,
+            top: glowY,
+            translateX: "-50%",
+            translateY: "-50%",
+          }}
+        />
 
-        <div className="ambient-glow ambient-teal right-[-180px] top-[30%] h-80 w-80 sm:h-[520px] sm:w-[520px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#05070b_82%)]" />
 
-        <div className="ambient-glow ambient-indigo bottom-[-180px] left-[35%] h-72 w-72 sm:h-[450px] sm:w-[450px]" />
-
-        <div className="absolute left-1/2 top-[42%] h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.025]" />
-
-        <div className="absolute left-1/2 top-[42%] h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.018]" />
+        <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(rgba(255,255,255,.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.8)_1px,transparent_1px)] [background-size:80px_80px]" />
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-        {/* Left Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="relative z-10"
-        >
-          {/* Eyebrow */}
+      <div className="relative mx-auto flex min-h-[calc(100vh-7rem)] max-w-7xl items-center px-6 pb-20 lg:px-8">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-[1fr_0.95fr] lg:gap-4">
+          {/* LEFT */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            className="relative z-20"
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.15,
-              duration: 0.6,
-            }}
-            className="mb-7 flex items-center gap-3"
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_14px_rgba(110,231,183,0.8)]" />
-
-            <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/45">
-              Senior iOS Engineer
-            </span>
-          </motion.div>
-
-          {/* Main Heading */}
-          <h1 className="max-w-4xl text-[3.25rem] font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-[4.5rem] lg:text-[5.65rem]">
-            I build
-            <br />
-
-            <span className="text-gradient">
-              native iOS
-            </span>
-
-            <br />
-
-            experiences
-            <span className="text-white/30">.</span>
-          </h1>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.35,
-              duration: 0.7,
-            }}
-            className="mt-7 max-w-xl text-[15px] leading-7 text-white/45 sm:text-base"
-          >
-            I'm Arshad Mustafa, a Senior iOS Engineer with 3.6+ years of
-            experience building polished, scalable, and user-focused
-            applications with Swift, SwiftUI, and UIKit.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.45,
-              duration: 0.7,
-            }}
-            className="mt-8 flex flex-wrap items-center gap-3"
-          >
-            <motion.a
-              href="#work"
-              whileHover={{
-                scale: 1.025,
-                y: -2,
-              }}
-              whileTap={{ scale: 0.97 }}
-              className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-white px-5 py-3.5 text-sm font-semibold text-black shadow-[0_12px_40px_rgba(255,255,255,0.08)]"
+            {/* Small intro */}
+            <motion.div
+              className="mb-8 flex items-center gap-3"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.6 }}
             >
-              <span className="relative z-10">
-                Explore My Work
+              <span className="h-px w-8 bg-emerald-400/70" />
+
+              <span className="text-[11px] font-medium uppercase tracking-[0.28em] text-white/40">
+                Senior iOS Engineer
+              </span>
+            </motion.div>
+
+            {/* Main heading */}
+          <h1 className="max-w-[760px] px-1 text-[54px] font-semibold leading-[0.96] tracking-[-0.03em] text-white sm:text-[68px] lg:text-[84px]">
+              I build
+              <br />
+
+              <span className="bg-gradient-to-r from-white via-white to-white/45 bg-clip-text text-transparent">
+                native iOS
               </span>
 
-              <motion.span
-                whileHover={{ x: 3 }}
-                className="relative z-10 text-black/50"
-              >
-                →
-              </motion.span>
+              <br />
 
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/[0.04] to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-            </motion.a>
+              <span className="bg-gradient-to-r from-emerald-300 via-cyan-300 to-white/70 bg-clip-text text-transparent">
+                experiences.
+              </span>
+            </h1>
 
-            <motion.a
-              href="#contact"
-              whileHover={{
-                scale: 1.025,
-                y: -2,
-              }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.045] px-5 py-3.5 text-sm font-medium text-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-xl transition-colors hover:bg-white/[0.08] hover:text-white"
+            {/* Description */}
+            <motion.p
+              className="mt-8 max-w-[560px] text-[15px] leading-7 text-white/45 sm:text-base"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.35, duration: 0.7 }}
             >
-              Get In Touch
-            </motion.a>
-          </motion.div>
+              I&apos;m Arshad Mustafa, a Senior iOS Engineer with 3.6+ years
+              of experience building polished, scalable, and user-focused
+              applications with Swift, SwiftUI, and UIKit.
+            </motion.p>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.55,
-              duration: 0.7,
-            }}
-            className="mt-12 flex flex-wrap items-center gap-7 sm:gap-10"
-          >
-            <div>
-              <p className="text-xl font-semibold tracking-tight text-white">
-                15+
-              </p>
+            {/* Buttons */}
+            <motion.div
+              className="mt-9 flex flex-wrap items-center gap-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.6 }}
+            >
+              <motion.a
+                href="#work"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black shadow-[0_15px_50px_rgba(255,255,255,0.08)]"
+              >
+                Explore My Work
 
-              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.16em] text-white/30">
-                Apps Published
-              </p>
-            </div>
-
-            <div className="h-8 w-px bg-white/[0.08]" />
-
-            <div>
-              <p className="text-xl font-semibold tracking-tight text-white">
-                3.6+
-              </p>
-
-              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.16em] text-white/30">
-                Years Experience
-              </p>
-            </div>
-
-            <div className="h-8 w-px bg-white/[0.08]" />
-
-            <div>
-              <p className="text-xl font-semibold tracking-tight text-white">
-                iOS
-              </p>
-
-              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.16em] text-white/30">
-                Swift Specialist
-              </p>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Right 3D Visual */}
-        <motion.div
-          style={{
-            rotateX,
-            rotateY,
-          }}
-          className="relative mx-auto h-[480px] w-full max-w-[520px] [perspective:1200px] sm:h-[580px]"
-        >
-          {/* Large Glow */}
-          <motion.div
-            style={{
-              x: photoX,
-              y: photoY,
-            }}
-            className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-400/[0.13] blur-[90px] sm:h-80 sm:w-80"
-          />
-
-          {/* Outer Ring */}
-          <motion.div
-            animate={{
-              rotate: 360,
-            }}
-            transition={{
-              duration: 35,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute left-1/2 top-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.055] sm:h-[440px] sm:w-[440px]"
-          />
-
-          {/* Dashed Ring */}
-          <motion.div
-            animate={{
-              rotate: -360,
-            }}
-            transition={{
-              duration: 48,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute left-1/2 top-1/2 h-[290px] w-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-teal-200/[0.08] sm:h-[370px] sm:w-[370px]"
-          />
-
-          {/* Main Profile Card */}
-          <motion.div
-            style={{
-              x: photoX,
-              y: photoY,
-            }}
-            className="absolute left-1/2 top-1/2 w-[260px] -translate-x-1/2 -translate-y-1/2 sm:w-[315px]"
-          >
-            <div className="glass-surface relative overflow-hidden rounded-[38px] p-2">
-              <div className="relative aspect-[0.78] overflow-hidden rounded-[31px] bg-[#0b0f16]">
-                <Image
-                  src="/own_img.jpg"
-                  alt="Arshad Mustafa"
-                  fill
-                  priority
-                  className="object-cover object-center"
-                  sizes="(max-width: 640px) 260px, 315px"
-                />
-
-                {/* Image Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#05070b]/75 via-transparent to-white/[0.04]" />
-
-                {/* Top Shine */}
-                <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/[0.08] to-transparent" />
-
-                {/* Subtle Border Highlight */}
-                <div className="pointer-events-none absolute inset-0 rounded-[31px] border border-white/[0.08]" />
-              </div>
-            </div>
-
-            {/* Name Plate */}
-            <div className="glass-card absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap rounded-2xl px-4 py-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.06]">
-                <span className="text-[9px] font-bold text-white">
-                  AM
+                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                  →
                 </span>
+              </motion.a>
+
+              <motion.a
+                href="#contact"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-6 py-3.5 text-sm font-medium text-white/70 backdrop-blur-xl transition-colors hover:border-white/20 hover:bg-white/[0.06] hover:text-white"
+              >
+                Get In Touch
+              </motion.a>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              className="mt-14 flex items-center gap-7 sm:gap-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.65, duration: 0.7 }}
+            >
+              <div>
+                <div className="text-xl font-semibold tracking-tight text-white">
+                  15+
+                </div>
+
+                <div className="mt-1 text-[10px] uppercase tracking-wider text-white/30">
+                  Apps Published
+                </div>
               </div>
+
+              <div className="h-9 w-px bg-white/10" />
 
               <div>
-                <p className="text-[11px] font-semibold text-white">
-                  Arshad Mustafa
-                </p>
+                <div className="text-xl font-semibold tracking-tight text-white">
+                  3.6+
+                </div>
 
-                <p className="text-[9px] text-white/35">
-                  Senior iOS Engineer
-                </p>
+                <div className="mt-1 text-[10px] uppercase tracking-wider text-white/30">
+                  Years Experience
+                </div>
               </div>
-            </div>
-          </motion.div>
 
-          {/* SwiftUI Floating Card */}
-          <motion.div
-            animate={{
-              y: [0, -8, 0],
-              rotate: [0, 1, 0],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="glass-card absolute left-0 top-[17%] hidden rounded-2xl px-4 py-3 sm:block"
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-300/10 bg-blue-400/10">
-                <span className="text-xs font-bold text-blue-200">
-                  S
-                </span>
-              </div>
+              <div className="h-9 w-px bg-white/10" />
 
               <div>
-                <p className="text-[11px] font-semibold text-white">
-                  SwiftUI
-                </p>
+                <div className="text-xl font-semibold tracking-tight text-white">
+                  Swift
+                </div>
 
-                <p className="text-[9px] text-white/30">
-                  Modern UI
-                </p>
+                <div className="mt-1 text-[10px] uppercase tracking-wider text-white/30">
+                  Primary Stack
+                </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Experience Floating Card */}
-          <motion.div
-            animate={{
-              y: [0, 8, 0],
-              rotate: [0, -1, 0],
-            }}
-            transition={{
-              duration: 5.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.7,
-            }}
-            className="glass-card absolute right-0 top-[28%] hidden rounded-2xl px-4 py-3 sm:block"
+          {/* RIGHT — PORTRAIT */}
+          <div
+            className="relative flex h-[590px] items-center justify-center lg:h-[680px]"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ perspective: "1500px" }}
           >
-            <p className="text-lg font-semibold tracking-tight text-white">
-              3.6+
-            </p>
+            {/* Main ambient glow */}
+            <motion.div
+              className="absolute h-[390px] w-[390px] rounded-full bg-emerald-300/[0.07] blur-[110px]"
+              style={{
+                x: imageX,
+                y: imageY,
+              }}
+            />
 
-            <p className="text-[9px] font-medium uppercase tracking-[0.12em] text-white/30">
-              Years Experience
-            </p>
-          </motion.div>
+            {/* Subtle orbital lines */}
+            <motion.div
+              className="absolute h-[500px] w-[500px] rounded-full border border-white/[0.035]"
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 35,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
 
-          {/* Published Apps Card */}
-          <motion.div
-            animate={{
-              y: [0, -7, 0],
-            }}
-            transition={{
-              duration: 4.8,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1.2,
-            }}
-            className="glass-card absolute bottom-[16%] right-0 hidden rounded-2xl px-4 py-3 sm:block"
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.06]">
-                <Image
-                  src="/other assets/apple_logo_icon.png"
-                  alt="Apple"
-                  width={17}
-                  height={17}
-                  className="opacity-75"
-                />
-              </div>
+            <motion.div
+              className="absolute h-[400px] w-[400px] rounded-full border border-emerald-300/[0.045]"
+              animate={{ rotate: -360 }}
+              transition={{
+                duration: 27,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
 
-              <div>
-                <p className="text-[11px] font-semibold text-white">
+            {/* Main 3D object */}
+            <motion.div
+              className="relative z-10 h-[500px] w-[350px]"
+              style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+              }}
+            >
+              {/* Back glass structure */}
+              <motion.div
+                className="absolute left-1/2 top-1/2 h-[460px] w-[325px] -translate-x-1/2 -translate-y-1/2 rounded-[55px] border border-white/[0.08] bg-white/[0.018] shadow-[0_50px_120px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+                style={{
+                  transform: "translateZ(-70px) rotateZ(-5deg)",
+                }}
+              />
+
+              {/* Light behind portrait */}
+              <div className="absolute left-1/2 top-1/2 h-[380px] w-[270px] -translate-x-1/2 -translate-y-1/2 rounded-[60px] bg-gradient-to-b from-emerald-300/[0.08] via-cyan-300/[0.025] to-transparent blur-3xl" />
+
+              {/* Portrait */}
+              <motion.div
+                className="absolute left-1/2 top-1/2 z-20 h-[455px] w-[315px] -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  x: imageX,
+                  y: imageY,
+                  transform: "translateZ(90px)",
+                }}
+              >
+                {/* Outer glass frame */}
+                <div className="relative h-full w-full rounded-[52px] border border-white/[0.13] bg-white/[0.045] p-2 shadow-[0_45px_100px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+                  {/* Image */}
+                  <div className="relative h-full w-full overflow-hidden rounded-[44px] bg-[#101419]">
+                    <Image
+                      src="/own_img.jpg"
+                      alt="Arshad Mustafa"
+                      fill
+                      priority
+                      sizes="315px"
+                      className="object-cover object-center"
+                    />
+
+                    {/* Cinematic gradient */}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-white/[0.06]" />
+
+                    {/* Soft side lighting */}
+                    <div className="pointer-events-none absolute -right-20 top-[-40px] h-[320px] w-[150px] rotate-[24deg] bg-white/[0.08] blur-3xl" />
+
+                    {/* Bottom information */}
+                    <div className="absolute bottom-5 left-5 right-5">
+                      <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 backdrop-blur-xl">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-sm font-medium text-white">
+                              Arshad Mustafa
+                            </p>
+
+                            <p className="mt-0.5 text-[10px] text-white/40">
+                              Senior iOS Engineer
+                            </p>
+                          </div>
+
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-emerald-300/20 bg-emerald-300/[0.08]">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.8)]" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Small floating experience badge */}
+              <motion.div
+                className="absolute -right-8 top-[95px] z-30 rounded-2xl border border-white/10 bg-black/45 px-4 py-3 shadow-2xl backdrop-blur-2xl"
+                style={{
+                  transform: "translateZ(160px)",
+                }}
+                animate={{
+                  y: [0, -7, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <div className="text-[9px] uppercase tracking-[0.18em] text-white/70">
+                  Experience
+                </div>
+
+                <div className="mt-1 text-sm font-semibold text-white">
+                  3.6+ Years
+                </div>
+              </motion.div>
+
+              {/* Apps badge */}
+              <motion.div
+                className="absolute -left-10 bottom-[295px] z-30 rounded-2xl border border-white/10 bg-black/5 px-4 py-3 shadow-2xl backdrop-blur-2xl"
+                style={{
+                  transform: "translateZ(140px)",
+                }}
+                animate={{
+                  y: [0, 7, 0],
+                }}
+                transition={{
+                  duration: 4.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <div className="text-[9px] uppercase tracking-[0.18em] text-white/70">
+                  Published
+                </div>
+
+                <div className="mt-1 text-sm font-semibold text-white">
                   15+ Apps
-                </p>
+                </div>
+              </motion.div>
 
-                <p className="text-[9px] text-white/30">
-                  Published on App Store
-                </p>
-              </div>
-            </div>
-          </motion.div>
+              {/* Tiny accent light */}
+              <motion.div
+                className="absolute right-[18px] top-[55px] h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_22px_rgba(110,231,183,0.8)]"
+                style={{
+                  transform: "translateZ(190px)",
+                }}
+                animate={{
+                  opacity: [0.35, 1, 0.35],
+                  scale: [0.8, 1.15, 0.8],
+                }}
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </motion.div>
+          </div>
+        </div>
 
-          {/* Decorative Dots */}
-          <div className="absolute left-[15%] top-[65%] h-1.5 w-1.5 rounded-full bg-teal-200/50 shadow-[0_0_15px_rgba(153,246,228,0.6)]" />
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4 }}
+        >
 
-          <div className="absolute right-[18%] top-[12%] h-1 w-1 rounded-full bg-blue-200/60 shadow-[0_0_12px_rgba(191,219,254,0.7)]" />
 
-          <div className="absolute bottom-[18%] left-[17%] h-1 w-1 rounded-full bg-white/30" />
+          <motion.div
+            className="h-9 w-px bg-gradient-to-b from-white/30 to-transparent"
+            animate={{
+              scaleY: [1, 0.4, 1],
+              opacity: [0.35, 0.9, 0.35],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.a
-        href="#work"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          delay: 1.2,
-          duration: 0.8,
-        }}
-        className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/25 sm:flex"
-      >
-        <span className="text-[9px] font-medium uppercase tracking-[0.2em]">
-          Scroll
-        </span>
-
-        <motion.span
-          animate={{
-            y: [0, 5, 0],
-          }}
-          transition={{
-            duration: 1.6,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="text-xs"
-        >
-          ↓
-        </motion.span>
-      </motion.a>
     </section>
   );
 }

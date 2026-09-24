@@ -9,48 +9,70 @@
 
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import type { MouseEvent } from "react";
 import type { Project } from "../Data/projects";
 
 type ProjectCardProps = {
   project: Project;
-  index?: number;
+  index: number;
 };
 
 export default function ProjectCard({
   project,
-  index = 0,
+  index,
 }: ProjectCardProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(
-    useTransform(mouseY, [-0.5, 0.5], [3, -3]),
-    {
-      stiffness: 120,
-      damping: 20,
-    }
+  const springX = useSpring(mouseX, {
+    stiffness: 100,
+    damping: 20,
+    mass: 0.5,
+  });
+
+  const springY = useSpring(mouseY, {
+    stiffness: 100,
+    damping: 20,
+    mass: 0.5,
+  });
+
+  const rotateX = useTransform(
+    springY,
+    [-0.5, 0.5],
+    [5, -5]
   );
 
-  const rotateY = useSpring(
-    useTransform(mouseX, [-0.5, 0.5], [-3, 3]),
-    {
-      stiffness: 120,
-      damping: 20,
-    }
+  const rotateY = useTransform(
+    springX,
+    [-0.5, 0.5],
+    [-5, 5]
   );
 
-  const handleMouseMove = (
-    event: React.MouseEvent<HTMLDivElement>
-  ) => {
+  const imageX = useTransform(
+    springX,
+    [-0.5, 0.5],
+    [-8, 8]
+  );
+
+  const imageY = useTransform(
+    springY,
+    [-0.5, 0.5],
+    [-6, 6]
+  );
+
+  const screenshots = project.assets.screenshots ?? [];
+
+  const handleMouseMove = (event: MouseEvent<HTMLElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
 
-    mouseX.set(
-      (event.clientX - rect.left) / rect.width - 0.5
-    );
+    const x =
+      (event.clientX - rect.left) / rect.width - 0.5;
 
-    mouseY.set(
-      (event.clientY - rect.top) / rect.height - 0.5
-    );
+    const y =
+      (event.clientY - rect.top) / rect.height - 0.5;
+
+    mouseX.set(x);
+    mouseY.set(y);
   };
 
   const handleMouseLeave = () => {
@@ -60,9 +82,11 @@ export default function ProjectCard({
 
   return (
     <motion.article
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       initial={{
         opacity: 0,
-        y: 30,
+        y: 35,
       }}
       whileInView={{
         opacity: 1,
@@ -70,210 +94,244 @@ export default function ProjectCard({
       }}
       viewport={{
         once: true,
-        amount: 0.12,
+        amount: 0.15,
       }}
       transition={{
-        duration: 0.65,
-        delay: (index % 3) * 0.07,
+        duration: 0.75,
+        delay: Math.min(index * 0.05, 0.2),
         ease: [0.22, 1, 0.36, 1],
       }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       style={{
         rotateX,
         rotateY,
       }}
-      className="group relative [perspective:1000px]"
+      className="group relative [perspective:1200px]"
     >
-      {/* Accent glow */}
-      <div
-        className="pointer-events-none absolute -inset-6 rounded-[38px] opacity-0 blur-[55px] transition-opacity duration-700 group-hover:opacity-20"
-        style={{
-          backgroundColor: project.accent,
-        }}
-      />
+      <div className="relative overflow-hidden rounded-[30px] border border-white/[0.08] bg-white/[0.025] shadow-[0_30px_90px_rgba(0,0,0,0.28)] transition-all duration-500 group-hover:border-white/[0.14] group-hover:bg-white/[0.04]">
+        {/* =================================================
+            AMBIENT LIGHT
+        ================================================= */}
 
-      <div className="glass-card shine-effect relative overflow-hidden rounded-[28px] p-5 transition-transform duration-500 group-hover:-translate-y-1 sm:p-6">
-        {/* Top highlight */}
-        <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.16] to-transparent" />
-
-        {/* Accent glow */}
         <div
-          className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full opacity-[0.055] blur-[55px]"
+          className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full blur-[90px] opacity-0 transition-opacity duration-700 group-hover:opacity-20"
           style={{
             backgroundColor: project.accent,
           }}
         />
 
-        {/* Header */}
-        <div className="relative z-10 flex items-start justify-between gap-4">
-          <div className="flex min-w-0 items-center gap-3">
-            <div
-              className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[14px] border border-white/[0.1]"
+        {/* =================================================
+            SCREENSHOT STAGE
+        ================================================= */}
+
+        <div className="relative h-[300px] overflow-hidden sm:h-[340px]">
+          {/* Background glow */}
+          <div
+            className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[70px]"
+            style={{
+              backgroundColor: project.accent,
+              opacity: 0.08,
+            }}
+          />
+
+          {/* Large background screenshot */}
+          {screenshots[1] && (
+            <motion.div
               style={{
-                boxShadow: `0 10px 30px ${project.accent}18`,
+                x: imageX,
+                y: imageY,
               }}
+              className="absolute left-[11%] top-[18%] w-[105px] rotate-[-9deg] sm:left-[13%] sm:w-[125px]"
             >
+              <div className="relative rounded-[22px] border border-white/[0.1] bg-[#090c11] p-1 shadow-[0_25px_60px_rgba(0,0,0,0.5)]">
+                <div className="relative aspect-[0.485] overflow-hidden rounded-[18px]">
+                  <Image
+                    src={screenshots[1]}
+                    alt={`${project.title} screenshot`}
+                    fill
+                    sizes="125px"
+                    className="object-cover"
+                  />
+
+                  <div className="absolute inset-0 bg-black/10" />
+                </div>
+
+                <div className="absolute left-1/2 top-2 h-3 w-10 -translate-x-1/2 rounded-full bg-black" />
+              </div>
+            </motion.div>
+          )}
+
+          {/* Main screenshot */}
+          {screenshots[0] && (
+            <motion.div
+              style={{
+                x: imageX,
+                y: imageY,
+              }}
+              whileHover={{
+                y: -6,
+              }}
+              className="absolute left-1/2 top-[7%] z-20 w-[145px] -translate-x-1/2 sm:w-[165px]"
+            >
+              <div className="absolute -inset-5 rounded-[40px] bg-black/50 blur-2xl" />
+
+              <div className="relative rounded-[28px] border border-white/[0.14] bg-[#080b10] p-1.5 shadow-[0_35px_75px_rgba(0,0,0,0.6)]">
+                <div className="relative aspect-[0.485] overflow-hidden rounded-[23px] bg-black">
+                  <Image
+                    src={screenshots[0]}
+                    alt={`${project.title} main screenshot`}
+                    fill
+                    sizes="165px"
+                    className="object-cover"
+                  />
+
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.1] via-transparent to-transparent" />
+
+                  <div className="pointer-events-none absolute inset-0 rounded-[23px] border border-white/[0.08]" />
+                </div>
+
+                <div className="absolute left-1/2 top-2.5 h-3.5 w-12 -translate-x-1/2 rounded-full bg-black" />
+              </div>
+            </motion.div>
+          )}
+
+          {/* Third screenshot */}
+          {screenshots[2] && (
+            <motion.div
+              style={{
+                x: imageX,
+                y: imageY,
+              }}
+              className="absolute right-[11%] top-[18%] w-[105px] rotate-[9deg] sm:right-[13%] sm:w-[125px]"
+            >
+              <div className="relative rounded-[22px] border border-white/[0.1] bg-[#090c11] p-1 shadow-[0_25px_60px_rgba(0,0,0,0.5)]">
+                <div className="relative aspect-[0.485] overflow-hidden rounded-[18px]">
+                  <Image
+                    src={screenshots[2]}
+                    alt={`${project.title} screenshot`}
+                    fill
+                    sizes="125px"
+                    className="object-cover"
+                  />
+
+                  <div className="absolute inset-0 bg-black/10" />
+                </div>
+
+                <div className="absolute left-1/2 top-2 h-3 w-10 -translate-x-1/2 rounded-full bg-black" />
+              </div>
+            </motion.div>
+          )}
+
+          {/* Number */}
+          <span className="absolute bottom-5 left-6 z-30 text-[52px] font-semibold tracking-[-0.08em] text-white/[0.035]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+          {/* Accent light */}
+          <span
+            className="absolute bottom-7 right-7 z-30 h-1.5 w-1.5 rounded-full"
+            style={{
+              backgroundColor: project.accent,
+              boxShadow: `0 0 16px ${project.accent}`,
+            }}
+          />
+        </div>
+
+        {/* =================================================
+            PROJECT INFORMATION
+        ================================================= */}
+
+        <div className="relative border-t border-white/[0.06] p-6 sm:p-7">
+          <div className="flex items-start justify-between gap-5">
+            <div className="min-w-0">
+              <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">
+                {project.category}
+              </p>
+
+              <h3 className="truncate text-xl font-semibold tracking-[-0.04em] text-white sm:text-2xl">
+                {project.title}
+              </h3>
+            </div>
+
+            {/* App icon */}
+            <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[14px] border border-white/[0.1] bg-white/[0.05] shadow-[0_12px_30px_rgba(0,0,0,0.3)]">
               <Image
                 src={project.assets.icon}
                 alt={`${project.title} icon`}
                 fill
-                className="object-cover"
                 sizes="48px"
+                className="object-cover"
               />
-            </div>
 
-            <div className="min-w-0">
-              <p className="truncate text-[15px] font-semibold tracking-[-0.02em] text-white">
-                {project.title}
-              </p>
-
-              <p className="mt-1 truncate text-[10px] font-medium uppercase tracking-[0.13em] text-white/30">
-                {project.category}
-              </p>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.14] via-transparent to-transparent" />
             </div>
           </div>
 
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.035] text-xs text-white/25 transition-all duration-300 group-hover:border-white/[0.14] group-hover:bg-white/[0.07] group-hover:text-white/70">
-            ↗
-          </span>
-        </div>
+          <p className="mt-4 line-clamp-2 text-xs leading-6 text-white/35 sm:text-sm">
+            {project.description}
+          </p>
 
-        {/* Description */}
-        <p className="relative z-10 mt-5 min-h-[68px] text-[12px] leading-6 text-white/38">
-          {project.description}
-        </p>
-
-        {/* Screenshot showcase */}
-        <div className="relative mt-6 flex h-[265px] items-end justify-center overflow-hidden rounded-[22px] border border-white/[0.06] bg-black/20">
-          {/* Background glow */}
-          <div
-            className="absolute left-1/2 top-1/2 h-44 w-44 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.09] blur-[55px]"
-            style={{
-              backgroundColor: project.accent,
-            }}
-          />
-
-          {/* Main screenshot */}
-          <motion.div
-            whileHover={{
-              y: -7,
-              rotate: 0,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 250,
-              damping: 20,
-            }}
-            className="relative z-20 w-[125px]"
-          >
-            <div className="device-frame rounded-[21px] p-1.5 shadow-[0_25px_55px_rgba(0,0,0,0.5)]">
-              <div className="relative aspect-[0.48] overflow-hidden rounded-[16px]">
-                <Image
-                  src={project.assets.screenshots[0]}
-                  alt={`${project.title} main screen`}
-                  fill
-                  className="object-cover"
-                  sizes="125px"
-                />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Left screenshot */}
-          <motion.div
-            whileHover={{
-              y: -4,
-              rotate: -2,
-            }}
-            className="absolute bottom-[-28px] left-[17%] z-10 w-[95px] -rotate-[8deg] opacity-70 transition-opacity duration-300 group-hover:opacity-90"
-          >
-            <div className="device-frame rounded-[17px] p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
-              <div className="relative aspect-[0.48] overflow-hidden rounded-[13px]">
-                <Image
-                  src={project.assets.screenshots[1]}
-                  alt={`${project.title} screen`}
-                  fill
-                  className="object-cover"
-                  sizes="95px"
-                />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right screenshot */}
-          <motion.div
-            whileHover={{
-              y: -4,
-              rotate: 2,
-            }}
-            className="absolute bottom-[-28px] right-[17%] z-10 w-[95px] rotate-[8deg] opacity-70 transition-opacity duration-300 group-hover:opacity-90"
-          >
-            <div className="device-frame rounded-[17px] p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.45)]">
-              <div className="relative aspect-[0.48] overflow-hidden rounded-[13px]">
-                <Image
-                  src={project.assets.screenshots[2]}
-                  alt={`${project.title} screen`}
-                  fill
-                  className="object-cover"
-                  sizes="95px"
-                />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Showcase gradient */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/35 to-transparent" />
-        </div>
-
-        {/* Technologies */}
-        <div className="relative z-10 mt-5 flex flex-wrap gap-1.5">
-          {project.technologies.slice(0, 4).map((technology) => (
-            <span
-              key={technology}
-              className="rounded-full border border-white/[0.07] bg-white/[0.035] px-2.5 py-1 text-[9px] font-medium text-white/35 transition-colors group-hover:text-white/50"
-            >
-              {technology}
-            </span>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <div className="relative z-10 mt-5 flex items-center justify-between border-t border-white/[0.06] pt-4">
-          <span className="text-[9px] font-medium uppercase tracking-[0.16em] text-white/20">
-            iOS Application
-          </span>
-
-          {project.appStoreUrl ? (
-            <motion.a
-              href={project.appStoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{
-                x: 2,
-              }}
-              className="flex items-center gap-2 text-[10px] font-semibold text-white/45 transition-colors hover:text-white"
-            >
-              <Image
-                src="/other assets/appstore_icon.png"
-                alt="App Store"
-                width={14}
-                height={14}
-                className="opacity-60"
-              />
-
-              <span>App Store</span>
-
-              <span className="text-white/20">
-                ↗
+          {/* Technologies */}
+          <div className="mt-5 flex flex-wrap gap-1.5">
+            {project.technologies.slice(0, 3).map((technology) => (
+              <span
+                key={technology}
+                className="rounded-full border border-white/[0.07] bg-white/[0.025] px-2.5 py-1 text-[9px] font-medium text-white/35"
+              >
+                {technology}
               </span>
-            </motion.a>
-          ) : (
-            <span className="text-[10px] text-white/20">
-              View Project
-            </span>
-          )}
+            ))}
+          </div>
+
+          {/* Footer */}
+          <div className="mt-6 flex items-center justify-between border-t border-white/[0.06] pt-5">
+            <a
+              href={`/projects/${project.slug}`}
+              className="text-[11px] font-medium text-white/40 transition-colors hover:text-white"
+            >
+              View project
+              <span className="ml-1 text-white/20">
+                →
+              </span>
+            </a>
+
+            {project.appStoreUrl && (
+              <motion.a
+                href={project.appStoreUrl}
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{
+                  scale: 1.05,
+                }}
+                whileTap={{
+                  scale: 0.96,
+                }}
+                className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.05] px-3.5 py-2 text-[10px] font-semibold text-white/65 transition-colors hover:bg-white/[0.09] hover:text-white"
+              >
+                <Image
+                  src="/other assets/appstore_icon.png"
+                  alt=""
+                  width={13}
+                  height={13}
+                  className="object-contain"
+                />
+
+                App Store
+
+                <span className="text-white/25">
+                  ↗
+                </span>
+              </motion.a>
+            )}
+          </div>
         </div>
+
+        {/* Bottom accent */}
+        <div
+          className="absolute bottom-0 left-[15%] right-[15%] h-px opacity-0 transition-opacity duration-500 group-hover:opacity-50"
+          style={{
+            background: `linear-gradient(90deg, transparent, ${project.accent}, transparent)`,
+          }}
+        />
       </div>
     </motion.article>
   );

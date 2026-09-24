@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+
 import Navbar from "../Components/Navbar";
 import Hero from "../Components/Hero";
 import FeaturedProject from "../Components/FeaturedProject";
@@ -162,16 +163,15 @@ export default function Home() {
 
       <Hero />
 
-      {/* ═══════════════════════════════════════
+      {/* =====================================================
           FEATURED WORK
-      ═══════════════════════════════════════ */}
+      ===================================================== */}
 
       <section
         id="work"
         className="relative px-5 py-24 sm:px-8 sm:py-32 lg:px-12"
       >
         <div className="mx-auto max-w-7xl">
-          {/* Section heading */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -190,7 +190,7 @@ export default function Home() {
               <h2 className="mt-4 max-w-2xl text-4xl font-semibold tracking-[-0.045em] text-white sm:text-5xl lg:text-6xl">
                 A few things
                 <br />
-                I've built.
+                I&apos;ve built.
               </h2>
             </div>
 
@@ -203,7 +203,6 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Featured projects */}
           <div className="space-y-8 sm:space-y-10">
             {featuredProjects.map((project, index) => (
               <FeaturedProject
@@ -216,43 +215,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
+      {/* =====================================================
           MORE PROJECTS
-      ═══════════════════════════════════════ */}
+      ===================================================== */}
 
       <section
-        id="projects"
-        className="relative px-5 py-24 sm:px-8 sm:py-32 lg:px-12"
+        id="more-projects"
+        className="relative px-5 py-28 sm:px-8 lg:px-12"
       >
         <div className="mx-auto max-w-7xl">
           <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
+            initial={{
+              opacity: 0,
+              y: 25,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
             viewport={{
               once: true,
-              amount: 0.2,
             }}
-            className="mb-12 flex flex-col justify-between gap-6 sm:mb-14 sm:flex-row sm:items-end"
+            transition={{
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mb-14 flex flex-col justify-between gap-6 sm:flex-row sm:items-end"
           >
             <div>
               <span className="section-label">
                 More Projects
               </span>
 
-              <h2 className="mt-4 text-4xl font-semibold tracking-[-0.045em] text-white sm:text-5xl">
+              <h2 className="mt-5 text-4xl font-semibold tracking-[-0.05em] text-white sm:text-5xl">
                 More things
                 <br />
-                I've shipped.
+                <span className="text-gradient">
+                  I&apos;ve built.
+                </span>
               </h2>
+
+              <p className="mt-5 max-w-xl text-sm leading-7 text-white/40 sm:text-base">
+                A collection of other iOS products,
+                utilities, and experiences I&apos;ve
+                designed and shipped.
+              </p>
             </div>
 
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.035] text-sm text-white/25">
-              {String(moreProjects.length).padStart(2, "0")}
+            <div className="hidden text-right sm:block">
+              <p className="text-3xl font-semibold tracking-[-0.05em] text-white">
+                {moreProjects.length}+
+              </p>
+
+              <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/25">
+                Additional Projects
+              </p>
             </div>
           </motion.div>
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2">
             {moreProjects.map((project, index) => (
               <ProjectCard
                 key={project.slug}
@@ -264,203 +285,134 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
+      {/* =====================================================
           ABOUT
-      ═══════════════════════════════════════ */}
+      ===================================================== */}
 
       <section
         id="about"
-        className="relative px-5 py-24 sm:px-8 sm:py-32 lg:px-12"
+        className="relative overflow-hidden px-5 py-32 sm:px-8 lg:px-12"
       >
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-            {/* Intro */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{
-                once: true,
-                amount: 0.2,
-              }}
-              className="relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-white/[0.035] p-7 shadow-[0_30px_80px_rgba(0,0,0,0.2)] backdrop-blur-2xl sm:p-10"
-            >
-              <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-blue-400/[0.07] blur-[70px]" />
+        <div className="ambient-glow ambient-blue -left-32 top-20 h-72 w-72" />
 
-              <span className="section-label">
-                About Me
-              </span>
+        <div className="ambient-glow ambient-teal bottom-10 right-[-120px] h-80 w-80" />
 
-              <h2 className="relative mt-5 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
-                Building iOS
-                <br />
-                experiences that
-                <br />
-                feel native.
-              </h2>
-
-              <p className="relative mt-6 text-sm leading-7 text-white/38">
-                I specialize in building modern iOS applications
-                using Swift, SwiftUI, and UIKit. My focus is on
-                clean architecture, polished interfaces,
-                reliable performance, and products that feel
-                natural to use.
-              </p>
-
-              <p className="relative mt-4 text-sm leading-7 text-white/38">
-                From Figma designs to App Store deployment,
-                I work across the complete iOS development
-                lifecycle.
-              </p>
-
-              <div className="relative mt-8 flex flex-wrap gap-2">
-                {[
-                  "Swift",
-                  "SwiftUI",
-                  "UIKit",
-                  "MVVM",
-                  "Core ML",
-                  "Firebase",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="glass-chip rounded-full px-3 py-1.5 text-[10px] font-medium text-white/45"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Philosophy */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{
-                once: true,
-                amount: 0.2,
-              }}
-              className="relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-white/[0.025] p-7 sm:p-10"
-            >
-              <div className="absolute bottom-[-120px] right-[-80px] h-72 w-72 rounded-full bg-teal-300/[0.05] blur-[80px]" />
-
-              <div className="relative grid gap-8 sm:grid-cols-2">
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/25">
-                    What I care about
-                  </p>
-
-                  <div className="mt-5 space-y-5">
-                    {[
-                      [
-                        "01",
-                        "Clean Architecture",
-                        "Maintainable code that can grow with the product.",
-                      ],
-                      [
-                        "02",
-                        "Native UX",
-                        "Interfaces that feel at home on Apple platforms.",
-                      ],
-                      [
-                        "03",
-                        "Performance",
-                        "Fast, responsive experiences with attention to detail.",
-                      ],
-                    ].map(([number, title, description]) => (
-                      <div
-                        key={number}
-                        className="border-b border-white/[0.06] pb-5 last:border-0"
-                      >
-                        <div className="flex gap-3">
-                          <span className="text-[9px] font-semibold text-white/20">
-                            {number}
-                          </span>
-
-                          <div>
-                            <p className="text-sm font-semibold text-white/75">
-                              {title}
-                            </p>
-
-                            <p className="mt-1 text-xs leading-5 text-white/30">
-                              {description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/25">
-                    Development
-                  </p>
-
-                  <div className="mt-5 space-y-3">
-                    {[
-                      "Figma → SwiftUI",
-                      "REST API Integration",
-                      "Firebase",
-                      "Core ML",
-                      "App Extensions",
-                      "StoreKit & IAP",
-                      "AdMob & Mediation",
-                      "App Store Deployment",
-                    ].map((item) => (
-                      <div
-                        key={item}
-                        className="flex items-center gap-3 text-xs text-white/40"
-                      >
-                        <span className="h-1 w-1 rounded-full bg-teal-200/50" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          EXPERIENCE
-      ═══════════════════════════════════════ */}
-
-      <section
-        id="experience"
-        className="relative px-5 py-24 sm:px-8 sm:py-32 lg:px-12"
-      >
-        <div className="mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-7xl">
           <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
+            initial={{
+              opacity: 0,
+              y: 25,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
             viewport={{
               once: true,
               amount: 0.2,
             }}
+            transition={{
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="mb-14"
           >
             <span className="section-label">
-              Experience
+              About Me
             </span>
 
-            <h2 className="mt-4 text-4xl font-semibold tracking-[-0.045em] text-white sm:text-5xl">
-              Where I've
+            <h2 className="mt-5 max-w-3xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-5xl lg:text-6xl">
+              Building iOS apps
               <br />
-              worked.
+              <span className="text-gradient">
+                from idea to App Store.
+              </span>
             </h2>
           </motion.div>
 
-          <div className="mt-12 overflow-hidden rounded-[32px] border border-white/[0.08] bg-white/[0.025] backdrop-blur-2xl">
-            {experiences.map((experience, index) => (
+          <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+            {/* Main Story */}
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.15,
+              }}
+              transition={{
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="glass-surface relative overflow-hidden rounded-[32px] p-7 sm:p-10"
+            >
+              <div className="pointer-events-none absolute -right-3 -top-12 text-[180px] font-semibold leading-none tracking-[-0.1em] text-white/[0.025]">
+                03
+              </div>
+
+              <div
+                className="mb-8 h-10 w-10 rounded-2xl border border-white/[0.1]"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(96,165,250,.18), rgba(45,212,191,.08))",
+                }}
+              >
+                <div className="flex h-full items-center justify-center">
+                  <span className="text-xs font-bold text-white/70">
+                    AM
+                  </span>
+                </div>
+              </div>
+
+              <p className="relative max-w-2xl text-lg leading-8 tracking-[-0.015em] text-white/75 sm:text-xl">
+                I&apos;m a Senior iOS Engineer focused on
+                building high-quality, scalable, and
+                user-centric applications using Swift,
+                SwiftUI, and UIKit.
+              </p>
+
+              <p className="relative mt-6 max-w-2xl text-sm leading-7 text-white/38 sm:text-[15px]">
+                I work across the complete iOS development
+                lifecycle, from turning product ideas and
+                Figma designs into polished interfaces to
+                integrating APIs, implementing modern
+                architectures, handling subscriptions and
+                monetization, and shipping applications
+                through the App Store.
+              </p>
+
+              <p className="relative mt-6 max-w-2xl text-sm leading-7 text-white/38 sm:text-[15px]">
+                My recent work has covered productivity
+                tools, photo and media utilities,
+                AI-powered experiences, navigation apps,
+                document tools, and other consumer
+                applications.
+              </p>
+
+              <div className="relative mt-10 flex items-center gap-4">
+                <div className="h-px w-12 bg-white/15" />
+
+                <span className="text-[10px] font-medium tracking-[0.18em] text-white/25">
+                  SWIFT • SWIFTUI • UIKIT
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Right Side */}
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
+              {/* Experience */}
+
               <motion.div
-                key={experience.company}
                 initial={{
                   opacity: 0,
-                  y: 20,
+                  y: 30,
                 }}
                 whileInView={{
                   opacity: 1,
@@ -471,76 +423,480 @@ export default function Home() {
                   amount: 0.15,
                 }}
                 transition={{
-                  duration: 0.6,
-                  delay: index * 0.08,
+                  duration: 0.8,
+                  delay: 0.08,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
-                className={`relative grid gap-6 p-6 sm:p-8 lg:grid-cols-[0.7fr_1fr_0.75fr] lg:items-center lg:px-10 ${
-                  index !== experiences.length - 1
-                    ? "border-b border-white/[0.06]"
-                    : ""
-                }`}
+                className="glass-card group relative overflow-hidden rounded-[30px] p-7"
               >
-                {/* Timeline line */}
-                {experience.current && (
-                  <span className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-teal-300/60 via-teal-300/20 to-transparent" />
-                )}
+                <div
+                  className="absolute -right-16 -top-16 h-40 w-40 rounded-full blur-[70px] opacity-10 transition-opacity duration-500 group-hover:opacity-20"
+                  style={{
+                    backgroundColor: "#60A5FA",
+                  }}
+                />
 
-                {/* Company */}
-                <div>
-                  <div className="flex items-center gap-2">
-                    {experience.current && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.8)]" />
-                    )}
+                <div className="relative flex items-start justify-between">
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/25">
+                      Experience
+                    </p>
 
-                    <p className="text-[15px] font-semibold tracking-[-0.02em] text-white/85">
-                      {experience.company}
+                    <p className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white">
+                      3.6+
+                    </p>
+
+                    <p className="mt-2 text-xs text-white/35">
+                      Years building iOS applications
                     </p>
                   </div>
 
-                  <p className="mt-2 text-xs text-white/30">
-                    {experience.location}
-                  </p>
-                </div>
-
-                {/* Role */}
-                <div>
-                  <p className="text-sm font-medium text-white/60">
-                    {experience.role}
-                  </p>
-
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {experience.technologies
-                      .slice(0, 5)
-                      .map((technology) => (
-                        <span
-                          key={technology}
-                          className="rounded-full border border-white/[0.06] bg-white/[0.025] px-2.5 py-1 text-[9px] text-white/30"
-                        >
-                          {technology}
-                        </span>
-                      ))}
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.04]">
+                    <span className="text-sm text-white/50">
+                      ✦
+                    </span>
                   </div>
                 </div>
+              </motion.div>
 
-                {/* Date */}
-                <div className="lg:text-right">
-                  <p className="text-xs font-medium text-white/45">
-                    {experience.period}
-                  </p>
+              {/* Apps */}
 
-                  <p className="mt-1 text-[10px] uppercase tracking-[0.14em] text-white/20">
-                    {experience.duration}
-                  </p>
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 30,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.15,
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.16,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="glass-card group relative overflow-hidden rounded-[30px] p-7"
+              >
+                <div
+                  className="absolute -bottom-20 -right-10 h-44 w-44 rounded-full blur-[75px] opacity-10 transition-opacity duration-500 group-hover:opacity-20"
+                  style={{
+                    backgroundColor: "#2DD4BF",
+                  }}
+                />
+
+                <div className="relative flex items-start justify-between">
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/25">
+                      Shipped
+                    </p>
+
+                    <p className="mt-4 text-5xl font-semibold tracking-[-0.07em] text-white">
+                      15+
+                    </p>
+
+                    <p className="mt-2 text-xs text-white/35">
+                      iOS apps and App Store projects
+                    </p>
+                  </div>
+
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.04]">
+                    <span className="text-sm text-white/50">
+                      
+                    </span>
+                  </div>
                 </div>
               </motion.div>
-            ))}
+
+              {/* Core Focus */}
+
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 30,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.15,
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.24,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="glass-card relative overflow-hidden rounded-[30px] p-7 sm:col-span-2 lg:col-span-1"
+              >
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/25">
+                  Core Focus
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {[
+                    "SwiftUI",
+                    "UIKit",
+                    "MVVM",
+                    "Core ML",
+                    "Combine",
+                    "Async/Await",
+                    "Firebase",
+                    "REST APIs",
+                  ].map((item) => (
+                    <span
+                      key={item}
+                      className="glass-chip rounded-full px-3 py-2 text-[10px] font-medium text-white/45"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           </div>
+
+          {/* Bottom Statement */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            whileInView={{
+              opacity: 1,
+            }}
+            viewport={{
+              once: true,
+            }}
+            transition={{
+              duration: 0.9,
+              delay: 0.25,
+            }}
+            className="mt-10 flex flex-col justify-between gap-5 border-t border-white/[0.06] pt-7 sm:flex-row sm:items-center"
+          >
+            <p className="max-w-xl text-xs leading-6 text-white/25">
+              From interface design to architecture, APIs,
+              monetization, testing, and App Store deployment.
+            </p>
+
+            <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-white/20">
+              iOS Engineering
+            </span>
+          </motion.div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
+      {/* =====================================================
+          EXPERIENCE
+      ===================================================== */}
+
+      <section
+        id="experience"
+        className="relative overflow-hidden px-5 py-28 sm:px-8 sm:py-36 lg:px-12"
+      >
+        {/* Ambient lighting */}
+
+        <div className="pointer-events-none absolute left-[-12%] top-[10%] h-[420px] w-[420px] rounded-full bg-blue-400/[0.045] blur-[130px]" />
+
+        <div className="pointer-events-none absolute bottom-[5%] right-[-12%] h-[420px] w-[420px] rounded-full bg-teal-300/[0.035] blur-[130px]" />
+
+        <div className="relative mx-auto max-w-7xl">
+          {/* Heading */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 30,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.2,
+            }}
+            transition={{
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="max-w-3xl"
+          >
+            <span className="section-label">
+              Experience
+            </span>
+
+            <h2 className="mt-5 text-4xl font-semibold tracking-[-0.055em] text-white sm:text-5xl lg:text-6xl">
+              Where I&apos;ve
+              <br />
+              <span className="text-gradient">
+                built my experience.
+              </span>
+            </h2>
+
+            <p className="mt-6 max-w-xl text-sm leading-7 text-white/35 sm:text-[15px]">
+              A journey through professional iOS development,
+              from building production applications to
+              shipping polished experiences on the App Store.
+            </p>
+          </motion.div>
+
+          {/* Timeline */}
+
+          <div className="relative mt-16">
+            {/* Vertical timeline */}
+
+            <div className="absolute bottom-8 left-[19px] top-8 hidden w-px bg-gradient-to-b from-blue-400/40 via-white/[0.08] to-teal-300/20 sm:block" />
+
+            <div className="space-y-5">
+              {experiences.map((experience, index) => (
+                <motion.article
+                  key={experience.company}
+                  initial={{
+                    opacity: 0,
+                    y: 35,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    amount: 0.15,
+                  }}
+                  transition={{
+                    duration: 0.75,
+                    delay: index * 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="relative sm:pl-12"
+                >
+                  {/* Timeline Node */}
+
+                  <div className="absolute left-[11px] top-10 z-20 hidden sm:block">
+                    <div
+                      className={`relative flex h-[17px] w-[17px] items-center justify-center rounded-full border ${
+                        experience.current
+                          ? "border-teal-300/30 bg-teal-300/[0.06]"
+                          : "border-white/[0.12] bg-[#070a0f]"
+                      }`}
+                    >
+                      <span
+                        className={`h-1.5 w-1.5 rounded-full ${
+                          experience.current
+                            ? "bg-emerald-300 shadow-[0_0_14px_rgba(110,231,183,0.9)]"
+                            : "bg-white/30"
+                        }`}
+                      />
+
+                      {experience.current && (
+                        <span className="absolute inset-[-5px] animate-pulse rounded-full border border-teal-300/20" />
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Experience Card */}
+
+                  <motion.div
+                    whileHover={{
+                      y: -4,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 280,
+                      damping: 22,
+                    }}
+                    className="group relative overflow-hidden rounded-[30px] border border-white/[0.08] bg-white/[0.025] shadow-[0_30px_90px_rgba(0,0,0,0.25)] backdrop-blur-2xl"
+                  >
+                    {/* Hover Glow */}
+
+                    <div
+                      className={`pointer-events-none absolute -right-28 -top-28 h-72 w-72 rounded-full blur-[100px] transition-opacity duration-700 ${
+                        experience.current
+                          ? "opacity-[0.10] group-hover:opacity-[0.18]"
+                          : "opacity-[0.04] group-hover:opacity-[0.10]"
+                      }`}
+                      style={{
+                        backgroundColor: experience.current
+                          ? "#2DD4BF"
+                          : "#60A5FA",
+                      }}
+                    />
+
+                    {/* Top Reflection */}
+
+                    <div className="pointer-events-none absolute left-[8%] right-[8%] top-0 h-px bg-gradient-to-r from-transparent via-white/[0.14] to-transparent" />
+
+                    {/* Current Badge */}
+
+                    {experience.current && (
+                      <div className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-emerald-300/[0.12] bg-emerald-300/[0.04] px-3 py-1.5 sm:right-8 sm:top-8">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.8)]" />
+
+                        <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-emerald-300/65">
+                          Current
+                        </span>
+                      </div>
+                    )}
+
+                    <div className="relative p-6 sm:p-8 lg:p-10">
+                      <div className="grid gap-8 lg:grid-cols-[0.85fr_1.35fr_0.55fr] lg:items-center">
+                        {/* Company */}
+
+                        <div>
+                          <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/25">
+                            Company
+                          </p>
+
+                          <h3 className="mt-3 max-w-xs text-xl font-semibold tracking-[-0.04em] text-white sm:text-2xl">
+                            {experience.company}
+                          </h3>
+
+                          <div className="mt-3 flex items-center gap-2">
+                            <span className="h-1 w-1 rounded-full bg-white/25" />
+
+                            <p className="text-xs text-white/30">
+                              {experience.location}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Role + Technologies */}
+
+                        <div>
+                          <p className="text-sm font-medium text-white/65 sm:text-[15px]">
+                            {experience.role}
+                          </p>
+
+                          <div className="mt-5 flex flex-wrap gap-2">
+                            {experience.technologies.map(
+                              (technology) => (
+                                <motion.span
+                                  key={technology}
+                                  whileHover={{
+                                    y: -2,
+                                  }}
+                                  className="rounded-full border border-white/[0.07] bg-white/[0.025] px-3 py-1.5 text-[9px] font-medium text-white/35 transition-colors hover:border-white/[0.12] hover:bg-white/[0.055] hover:text-white/65"
+                                >
+                                  {technology}
+                                </motion.span>
+                              )
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Period */}
+
+                        <div className="lg:text-right">
+                          <p className="text-xs font-medium text-white/50">
+                            {experience.period}
+                          </p>
+
+                          <p
+                            className={`mt-2 text-[9px] font-medium uppercase tracking-[0.18em] ${
+                              experience.current
+                                ? "text-emerald-300/55"
+                                : "text-white/20"
+                            }`}
+                          >
+                            {experience.duration}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Bottom Metadata */}
+
+                      <div className="mt-8 flex items-center justify-between border-t border-white/[0.06] pt-5">
+                        <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-white/20">
+                          iOS Engineering
+                        </span>
+
+                        <span className="text-[9px] font-medium text-white/15">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bottom Accent */}
+
+                    <div
+                      className={`absolute bottom-0 left-[10%] right-[10%] h-px transition-opacity duration-500 ${
+                        experience.current
+                          ? "opacity-50 group-hover:opacity-90"
+                          : "opacity-20 group-hover:opacity-50"
+                      }`}
+                      style={{
+                        background: `linear-gradient(
+                          90deg,
+                          transparent,
+                          ${
+                            experience.current
+                              ? "#2DD4BF"
+                              : "#60A5FA"
+                          },
+                          transparent
+                        )`,
+                      }}
+                    />
+                  </motion.div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+
+          {/* Experience Summary */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 25,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.25,
+            }}
+            transition={{
+              duration: 0.8,
+              delay: 0.15,
+            }}
+            className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4"
+          >
+            {[
+              ["3.6+", "Years Experience"],
+              ["15+", "Apps Shipped"],
+              ["3", "Companies"],
+              ["SwiftUI", "Primary UI"],
+            ].map(([value, label]) => (
+              <div
+                key={label}
+                className="group relative overflow-hidden rounded-[22px] border border-white/[0.07] bg-white/[0.025] px-5 py-5 backdrop-blur-xl"
+              >
+                <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-blue-400/[0.04] blur-2xl transition-opacity group-hover:opacity-100" />
+
+                <p className="relative text-xl font-semibold tracking-[-0.04em] text-white sm:text-2xl">
+                  {value}
+                </p>
+
+                <p className="relative mt-1.5 text-[8px] font-medium uppercase tracking-[0.14em] text-white/25 sm:text-[9px]">
+                  {label}
+                </p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* =====================================================
           SKILLS
-      ═══════════════════════════════════════ */}
+      ===================================================== */}
 
       <section
         id="skills"
@@ -615,9 +971,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
+      {/* =====================================================
           CONTACT
-      ═══════════════════════════════════════ */}
+      ===================================================== */}
 
       <section
         id="contact"
@@ -626,6 +982,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="relative overflow-hidden rounded-[36px] border border-white/[0.09] bg-white/[0.035] px-6 py-14 text-center shadow-[0_40px_120px_rgba(0,0,0,0.3)] backdrop-blur-2xl sm:px-12 sm:py-20">
             {/* Background glows */}
+
             <div className="pointer-events-none absolute left-1/2 top-[-180px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-blue-400/[0.09] blur-[100px]" />
 
             <div className="pointer-events-none absolute bottom-[-180px] left-1/2 h-[350px] w-[350px] -translate-x-1/2 rounded-full bg-teal-300/[0.05] blur-[90px]" />
@@ -636,7 +993,7 @@ export default function Home() {
               </span>
 
               <h2 className="mx-auto mt-5 max-w-3xl text-4xl font-semibold tracking-[-0.055em] text-white sm:text-6xl lg:text-7xl">
-                Let's build something
+                Let&apos;s build something
                 <br />
                 <span className="text-gradient">
                   great together.
@@ -645,7 +1002,7 @@ export default function Home() {
 
               <p className="mx-auto mt-6 max-w-xl text-sm leading-7 text-white/35 sm:text-base">
                 Have an iOS product, idea, or opportunity?
-                I'd be happy to talk about it.
+                I&apos;d be happy to talk about it.
               </p>
 
               <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -698,9 +1055,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
+      {/* =====================================================
           FOOTER
-      ═══════════════════════════════════════ */}
+      ===================================================== */}
 
       <footer className="px-5 pb-8 pt-4 sm:px-8 lg:px-12">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-7 text-center sm:flex-row sm:text-left">

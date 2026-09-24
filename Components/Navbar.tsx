@@ -7,6 +7,7 @@
 
 "use client";
 
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -28,6 +29,7 @@ export default function Navbar() {
     };
 
     handleScroll();
+
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -60,16 +62,49 @@ export default function Navbar() {
             onClick={closeMenu}
             className="group flex items-center gap-3"
           >
+            {/* 3D Profile Logo */}
             <motion.div
-              whileHover={{ rotate: -4, scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-[12px] border border-white/10 bg-white/[0.06] shadow-lg"
+              whileHover={{
+                rotateY: -8,
+                rotateX: 4,
+                scale: 1.06,
+                y: -1,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 22,
+              }}
+              className="relative h-9 w-9"
+              style={{
+                perspective: "500px",
+              }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-transparent to-teal-300/20" />
+              {/* Soft depth shadow */}
+              <div className="absolute inset-[2px] translate-y-[3px] rounded-[12px] bg-black/50 blur-[5px]" />
 
-              <span className="relative text-[11px] font-bold tracking-tight text-white">
-                AM
-              </span>
+              {/* Back depth layer */}
+              <div className="absolute inset-0 translate-x-[1px] translate-y-[2px] rounded-[12px] border border-emerald-300/[0.08] bg-white/[0.025]" />
+
+              {/* Main glass frame */}
+              <div className="relative h-full w-full overflow-hidden rounded-[12px] border border-white/[0.14] bg-white/[0.07] shadow-[0_8px_25px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-xl">
+                <Image
+                  src="/own_img.jpg"
+                  alt="Arshad Mustafa"
+                  fill
+                  sizes="36px"
+                  className="object-cover object-center"
+                />
+
+                {/* Glass reflection */}
+                <div className="pointer-events-none absolute -left-3 top-[-12px] h-16 w-6 rotate-[25deg] bg-white/[0.16] blur-[7px]" />
+
+                {/* Bottom depth gradient */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/[0.08]" />
+
+                {/* Fine glass highlight */}
+                <div className="pointer-events-none absolute inset-[1px] rounded-[11px] border border-white/[0.06]" />
+              </div>
             </motion.div>
 
             <div className="hidden sm:block">
