@@ -151,7 +151,7 @@ const fadeUp = {
     y: 0,
     transition: {
       duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as const,
     },
   },
 };
@@ -160,13 +160,11 @@ export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden">
       <Navbar />
-
       <Hero />
 
       {/* =====================================================
           FEATURED WORK
       ===================================================== */}
-
       <section
         id="work"
         className="relative px-5 py-24 sm:px-8 sm:py-32 lg:px-12"
@@ -218,7 +216,6 @@ export default function Home() {
       {/* =====================================================
           MORE PROJECTS
       ===================================================== */}
-
       <section
         id="more-projects"
         className="relative px-5 py-28 sm:px-8 lg:px-12"
@@ -238,7 +235,7 @@ export default function Home() {
             }}
             transition={{
               duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
+              ease: [0.22, 1, 0.36, 1] as const,
             }}
             className="mb-14 flex flex-col justify-between gap-6 sm:flex-row sm:items-end"
           >
@@ -288,13 +285,11 @@ export default function Home() {
       {/* =====================================================
           ABOUT
       ===================================================== */}
-
       <section
         id="about"
         className="relative overflow-hidden px-5 py-32 sm:px-8 lg:px-12"
       >
         <div className="ambient-glow ambient-blue -left-32 top-20 h-72 w-72" />
-
         <div className="ambient-glow ambient-teal bottom-10 right-[-120px] h-80 w-80" />
 
         <div className="relative mx-auto max-w-7xl">
@@ -313,7 +308,7 @@ export default function Home() {
             }}
             transition={{
               duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
+              ease: [0.22, 1, 0.36, 1] as const,
             }}
             className="mb-14"
           >
@@ -332,7 +327,6 @@ export default function Home() {
 
           <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
             {/* Main Story */}
-
             <motion.div
               initial={{
                 opacity: 0,
@@ -348,7 +342,7 @@ export default function Home() {
               }}
               transition={{
                 duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
+                ease: [0.22, 1, 0.36, 1] as const,
               }}
               className="glass-surface relative overflow-hidden rounded-[32px] p-7 sm:p-10"
             >
@@ -405,10 +399,8 @@ export default function Home() {
             </motion.div>
 
             {/* Right Side */}
-
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
               {/* Experience */}
-
               <motion.div
                 initial={{
                   opacity: 0,
@@ -425,7 +417,7 @@ export default function Home() {
                 transition={{
                   duration: 0.8,
                   delay: 0.08,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: [0.22, 1, 0.36, 1] as const,
                 }}
                 className="glass-card group relative overflow-hidden rounded-[30px] p-7"
               >
@@ -460,7 +452,6 @@ export default function Home() {
               </motion.div>
 
               {/* Apps */}
-
               <motion.div
                 initial={{
                   opacity: 0,
@@ -477,7 +468,7 @@ export default function Home() {
                 transition={{
                   duration: 0.8,
                   delay: 0.16,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: [0.22, 1, 0.36, 1] as const,
                 }}
                 className="glass-card group relative overflow-hidden rounded-[30px] p-7"
               >
@@ -512,7 +503,6 @@ export default function Home() {
               </motion.div>
 
               {/* Core Focus */}
-
               <motion.div
                 initial={{
                   opacity: 0,
@@ -529,7 +519,7 @@ export default function Home() {
                 transition={{
                   duration: 0.8,
                   delay: 0.24,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: [0.22, 1, 0.36, 1] as const,
                 }}
                 className="glass-card relative overflow-hidden rounded-[30px] p-7 sm:col-span-2 lg:col-span-1"
               >
@@ -561,7 +551,6 @@ export default function Home() {
           </div>
 
           {/* Bottom Statement */}
-
           <motion.div
             initial={{
               opacity: 0,
@@ -593,20 +582,17 @@ export default function Home() {
       {/* =====================================================
           EXPERIENCE
       ===================================================== */}
-
       <section
         id="experience"
         className="relative overflow-hidden px-5 py-28 sm:px-8 sm:py-36 lg:px-12"
       >
         {/* Ambient lighting */}
-
         <div className="pointer-events-none absolute left-[-12%] top-[10%] h-[420px] w-[420px] rounded-full bg-blue-400/[0.045] blur-[130px]" />
 
         <div className="pointer-events-none absolute bottom-[5%] right-[-12%] h-[420px] w-[420px] rounded-full bg-teal-300/[0.035] blur-[130px]" />
 
         <div className="relative mx-auto max-w-7xl">
           {/* Heading */}
-
           <motion.div
             initial={{
               opacity: 0,
@@ -622,7 +608,7 @@ export default function Home() {
             }}
             transition={{
               duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
+              ease: [0.22, 1, 0.36, 1] as const,
             }}
             className="max-w-3xl"
           >
@@ -646,10 +632,8 @@ export default function Home() {
           </motion.div>
 
           {/* Timeline */}
-
           <div className="relative mt-16">
             {/* Vertical timeline */}
-
             <div className="absolute bottom-8 left-[19px] top-8 hidden w-px bg-gradient-to-b from-blue-400/40 via-white/[0.08] to-teal-300/20 sm:block" />
 
             <div className="space-y-5">
@@ -671,12 +655,11 @@ export default function Home() {
                   transition={{
                     duration: 0.75,
                     delay: index * 0.1,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: [0.22, 1, 0.36, 1] as const,
                   }}
                   className="relative sm:pl-12"
                 >
                   {/* Timeline Node */}
-
                   <div className="absolute left-[11px] top-10 z-20 hidden sm:block">
                     <div
                       className={`relative flex h-[17px] w-[17px] items-center justify-center rounded-full border ${
@@ -700,7 +683,6 @@ export default function Home() {
                   </div>
 
                   {/* Experience Card */}
-
                   <motion.div
                     whileHover={{
                       y: -4,
@@ -713,7 +695,6 @@ export default function Home() {
                     className="group relative overflow-hidden rounded-[30px] border border-white/[0.08] bg-white/[0.025] shadow-[0_30px_90px_rgba(0,0,0,0.25)] backdrop-blur-2xl"
                   >
                     {/* Hover Glow */}
-
                     <div
                       className={`pointer-events-none absolute -right-28 -top-28 h-72 w-72 rounded-full blur-[100px] transition-opacity duration-700 ${
                         experience.current
@@ -728,11 +709,9 @@ export default function Home() {
                     />
 
                     {/* Top Reflection */}
-
                     <div className="pointer-events-none absolute left-[8%] right-[8%] top-0 h-px bg-gradient-to-r from-transparent via-white/[0.14] to-transparent" />
 
                     {/* Current Badge */}
-
                     {experience.current && (
                       <div className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-emerald-300/[0.12] bg-emerald-300/[0.04] px-3 py-1.5 sm:right-8 sm:top-8">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.8)]" />
@@ -746,7 +725,6 @@ export default function Home() {
                     <div className="relative p-6 sm:p-8 lg:p-10">
                       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.35fr_0.55fr] lg:items-center">
                         {/* Company */}
-
                         <div>
                           <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/25">
                             Company
@@ -766,7 +744,6 @@ export default function Home() {
                         </div>
 
                         {/* Role + Technologies */}
-
                         <div>
                           <p className="text-sm font-medium text-white/65 sm:text-[15px]">
                             {experience.role}
@@ -790,7 +767,6 @@ export default function Home() {
                         </div>
 
                         {/* Period */}
-
                         <div className="lg:text-right">
                           <p className="text-xs font-medium text-white/50">
                             {experience.period}
@@ -809,7 +785,6 @@ export default function Home() {
                       </div>
 
                       {/* Bottom Metadata */}
-
                       <div className="mt-8 flex items-center justify-between border-t border-white/[0.06] pt-5">
                         <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-white/20">
                           iOS Engineering
@@ -822,7 +797,6 @@ export default function Home() {
                     </div>
 
                     {/* Bottom Accent */}
-
                     <div
                       className={`absolute bottom-0 left-[10%] right-[10%] h-px transition-opacity duration-500 ${
                         experience.current
@@ -849,7 +823,6 @@ export default function Home() {
           </div>
 
           {/* Experience Summary */}
-
           <motion.div
             initial={{
               opacity: 0,
@@ -897,7 +870,6 @@ export default function Home() {
       {/* =====================================================
           SKILLS
       ===================================================== */}
-
       <section
         id="skills"
         className="relative px-5 py-24 sm:px-8 sm:py-32 lg:px-12"
@@ -974,7 +946,6 @@ export default function Home() {
       {/* =====================================================
           CONTACT
       ===================================================== */}
-
       <section
         id="contact"
         className="relative px-5 py-24 sm:px-8 sm:py-32 lg:px-12"
@@ -982,7 +953,6 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="relative overflow-hidden rounded-[36px] border border-white/[0.09] bg-white/[0.035] px-6 py-14 text-center shadow-[0_40px_120px_rgba(0,0,0,0.3)] backdrop-blur-2xl sm:px-12 sm:py-20">
             {/* Background glows */}
-
             <div className="pointer-events-none absolute left-1/2 top-[-180px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-blue-400/[0.09] blur-[100px]" />
 
             <div className="pointer-events-none absolute bottom-[-180px] left-1/2 h-[350px] w-[350px] -translate-x-1/2 rounded-full bg-teal-300/[0.05] blur-[90px]" />
@@ -1058,7 +1028,6 @@ export default function Home() {
       {/* =====================================================
           FOOTER
       ===================================================== */}
-
       <footer className="px-5 pb-8 pt-4 sm:px-8 lg:px-12">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-7 text-center sm:flex-row sm:text-left">
           <div>
