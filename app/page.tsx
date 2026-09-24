@@ -112,13 +112,13 @@ const contactItems = [
     label: "Email",
     value: "arshadmustafa129@gmail.com",
     href: "mailto:arshadmustafa129@gmail.com",
-    icon: "/other assets/email_icon.png",
+    icon: "/other assets/mail_icon.png",
   },
   {
     label: "Phone",
     value: "+92 335 2428032",
     href: "tel:+923352428032",
-    icon: "/other assets/phone_icon.png",
+    icon: "/other assets/mobile_icon.png",
   },
   {
     label: "WhatsApp",

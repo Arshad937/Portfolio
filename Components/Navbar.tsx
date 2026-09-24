@@ -100,11 +100,27 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <motion.a
-            href="#contact"
+            href="tel:+923352428032"
             whileHover={{ scale: 1.035, y: -1 }}
             whileTap={{ scale: 0.97 }}
-            className="hidden items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2.5 text-[12px] font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors hover:bg-white/[0.12] md:flex"
+            className="group hidden items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2.5 text-[12px] font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors hover:bg-white/[0.12] md:flex"
           >
+            {/* Phone Icon */}
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              className="h-4 w-4 text-white/55 transition-colors duration-300 group-hover:text-white"
+              aria-hidden="true"
+            >
+              <path
+                d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.61 21 3 12.39 3 2a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+
             <span>Let's Talk</span>
 
             <motion.span
@@ -162,7 +178,10 @@ export default function Navbar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: 0.3,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               className="overflow-hidden md:hidden"
             >
               <div className="border-t border-white/[0.07] px-3 pb-3 pt-2">
@@ -185,10 +204,26 @@ export default function Navbar() {
                 ))}
 
                 <a
-                  href="#contact"
+                  href="tel:+923352428032"
                   onClick={closeMenu}
-                  className="mt-1 flex items-center justify-center rounded-xl border border-white/[0.1] bg-white/[0.07] px-4 py-3 text-sm font-semibold text-white"
+                  className="mt-1 flex items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.07] px-4 py-3 text-sm font-semibold text-white"
                 >
+                  {/* Mobile Phone Icon */}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="h-4 w-4 text-white/70"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.61 21 3 12.39 3 2a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"
+                      stroke="currentColor"
+                      strokeWidth="1.7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
                   Let's Talk
                 </a>
               </div>

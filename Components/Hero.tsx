@@ -14,6 +14,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
+import type { MouseEvent } from "react";
 
 export default function Hero() {
   const mouseX = useMotionValue(0);
@@ -37,16 +38,11 @@ export default function Hero() {
   const photoX = useTransform(springX, [-0.5, 0.5], [-10, 10]);
   const photoY = useTransform(springY, [-0.5, 0.5], [-8, 8]);
 
-  const handleMouseMove = (
-    event: React.MouseEvent<HTMLDivElement>
-  ) => {
+  const handleMouseMove = (event: MouseEvent<HTMLElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
 
-    const x =
-      (event.clientX - rect.left) / rect.width - 0.5;
-
-    const y =
-      (event.clientY - rect.top) / rect.height - 0.5;
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
 
     mouseX.set(x);
     mouseY.set(y);
@@ -64,7 +60,7 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Ambient background */}
+      {/* Ambient Background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="ambient-glow ambient-blue -left-32 top-10 h-72 w-72 sm:h-[480px] sm:w-[480px]" />
 
@@ -78,10 +74,7 @@ export default function Hero() {
       </div>
 
       <div className="relative mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-        {/* ─────────────────────────────
-            Left Content
-        ───────────────────────────── */}
-
+        {/* Left Content */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -95,7 +88,10 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.6 }}
+            transition={{
+              delay: 0.15,
+              duration: 0.6,
+            }}
             className="mb-7 flex items-center gap-3"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_14px_rgba(110,231,183,0.8)]" />
@@ -124,20 +120,25 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.7 }}
+            transition={{
+              delay: 0.35,
+              duration: 0.7,
+            }}
             className="mt-7 max-w-xl text-[15px] leading-7 text-white/45 sm:text-base"
           >
-            I'm Arshad Mustafa, a Senior iOS Engineer with
-            3.6+ years of experience building polished,
-            scalable, and user-focused applications with
-            Swift, SwiftUI, and UIKit.
+            I'm Arshad Mustafa, a Senior iOS Engineer with 3.6+ years of
+            experience building polished, scalable, and user-focused
+            applications with Swift, SwiftUI, and UIKit.
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.7 }}
+            transition={{
+              delay: 0.45,
+              duration: 0.7,
+            }}
             className="mt-8 flex flex-wrap items-center gap-3"
           >
             <motion.a
@@ -180,7 +181,10 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.7 }}
+            transition={{
+              delay: 0.55,
+              duration: 0.7,
+            }}
             className="mt-12 flex flex-wrap items-center gap-7 sm:gap-10"
           >
             <div>
@@ -219,10 +223,7 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* ─────────────────────────────
-            Right 3D Visual
-        ───────────────────────────── */}
-
+        {/* Right 3D Visual */}
         <motion.div
           style={{
             rotateX,
@@ -230,7 +231,7 @@ export default function Hero() {
           }}
           className="relative mx-auto h-[480px] w-full max-w-[520px] [perspective:1200px] sm:h-[580px]"
         >
-          {/* Large glow behind device */}
+          {/* Large Glow */}
           <motion.div
             style={{
               x: photoX,
@@ -239,7 +240,7 @@ export default function Hero() {
             className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-400/[0.13] blur-[90px] sm:h-80 sm:w-80"
           />
 
-          {/* Outer ring */}
+          {/* Outer Ring */}
           <motion.div
             animate={{
               rotate: 360,
@@ -252,7 +253,7 @@ export default function Hero() {
             className="absolute left-1/2 top-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.055] sm:h-[440px] sm:w-[440px]"
           />
 
-          {/* Dashed ring */}
+          {/* Dashed Ring */}
           <motion.div
             animate={{
               rotate: -360,
@@ -265,7 +266,7 @@ export default function Hero() {
             className="absolute left-1/2 top-1/2 h-[290px] w-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-teal-200/[0.08] sm:h-[370px] sm:w-[370px]"
           />
 
-          {/* Main glass photo card */}
+          {/* Main Profile Card */}
           <motion.div
             style={{
               x: photoX,
@@ -281,18 +282,21 @@ export default function Hero() {
                   fill
                   priority
                   className="object-cover object-center"
-                  sizes="315px"
+                  sizes="(max-width: 640px) 260px, 315px"
                 />
 
-                {/* Image gradient */}
+                {/* Image Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#05070b]/75 via-transparent to-white/[0.04]" />
 
-                {/* Top shine */}
+                {/* Top Shine */}
                 <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/[0.08] to-transparent" />
+
+                {/* Subtle Border Highlight */}
+                <div className="pointer-events-none absolute inset-0 rounded-[31px] border border-white/[0.08]" />
               </div>
             </div>
 
-            {/* Name plate */}
+            {/* Name Plate */}
             <div className="glass-card absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap rounded-2xl px-4 py-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.06]">
                 <span className="text-[9px] font-bold text-white">
@@ -312,7 +316,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* SwiftUI floating card */}
+          {/* SwiftUI Floating Card */}
           <motion.div
             animate={{
               y: [0, -8, 0],
@@ -344,7 +348,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Experience floating card */}
+          {/* Experience Floating Card */}
           <motion.div
             animate={{
               y: [0, 8, 0],
@@ -367,7 +371,7 @@ export default function Hero() {
             </p>
           </motion.div>
 
-          {/* Published apps card */}
+          {/* Published Apps Card */}
           <motion.div
             animate={{
               y: [0, -7, 0],
@@ -403,7 +407,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Small decorative dots */}
+          {/* Decorative Dots */}
           <div className="absolute left-[15%] top-[65%] h-1.5 w-1.5 rounded-full bg-teal-200/50 shadow-[0_0_15px_rgba(153,246,228,0.6)]" />
 
           <div className="absolute right-[18%] top-[12%] h-1 w-1 rounded-full bg-blue-200/60 shadow-[0_0_12px_rgba(191,219,254,0.7)]" />
@@ -412,12 +416,15 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll Indicator */}
       <motion.a
         href="#work"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
+        transition={{
+          delay: 1.2,
+          duration: 0.8,
+        }}
         className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/25 sm:flex"
       >
         <span className="text-[9px] font-medium uppercase tracking-[0.2em]">
@@ -425,7 +432,9 @@ export default function Hero() {
         </span>
 
         <motion.span
-          animate={{ y: [0, 5, 0] }}
+          animate={{
+            y: [0, 5, 0],
+          }}
           transition={{
             duration: 1.6,
             repeat: Infinity,
